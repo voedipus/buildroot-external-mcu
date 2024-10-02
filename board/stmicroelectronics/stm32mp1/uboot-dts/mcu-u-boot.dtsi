@@ -1,0 +1,63 @@
+// SPDX-License-Identifier: (GPL-2.0-or-later OR BSD-3-Clause)
+/*
+ * Copyright (C) 2024, STMicroelectronics - All Rights Reserved
+ * Author: STM32CubeMX code generation for STMicroelectronics.
+ */
+
+/* For more information on Device Tree configuration, please refer to
+ * https://wiki.st.com/stm32mpu/wiki/Category:Device_tree_configuration
+ */
+
+/* USER CODE BEGIN includes */
+#include "stm32mp15-scmi-u-boot.dtsi"
+/* USER CODE END includes */
+
+/ {
+
+	/* USER CODE BEGIN root */
+	/* USER CODE END root */
+
+}; /*root*/
+
+/* USER CODE BEGIN addons */
+
+&fmc {
+	nand-controller@4,0 {
+		nand@0 {
+			partitions {
+				compatible = "fixed-partitions";
+				#address-cells = <1>;
+				#size-cells = <1>;
+
+				partition@0 {
+					label = "fsbl1";
+					reg = <0x00000000 0x00100000>;
+				};
+				partition@100000 {
+					label = "fsbl2";
+					reg = <0x00100000 0x00100000>;
+				};
+				partition@200000 {
+					label = "fip";
+					reg = <0x00200000 0x00400000>;
+				};
+				partition@600000 {
+					label = "fip2";
+					reg = <0x00600000 0x00400000>;
+				};
+				partition@a00000 {
+					label = "UBI";
+					reg = <0x00a00000 0xf600000>;
+				};
+			};
+		};
+	};
+};
+
+&usart1 {
+	clocks = <&scmi_clk CK_SCMI_USART1>;
+	resets = <&scmi_reset RST_SCMI_USART1>;
+};
+/* USER CODE END addons */
+
+
